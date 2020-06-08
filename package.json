@@ -1,0 +1,23 @@
+{
+  "name": "projet5",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass --watch ./scss/main.scss:./css/style.css --style compressed",
+    "prefix": "postcss ./css/style.css --use autoprefixer -d ./css/prefixed/ "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gregouz3/P5-OCRweb.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gregouz3/P5-OCRweb/issues"
+  },
+  "homepage": "https://github.com/gregouz3/P5-OCRweb#readme",
+  "dependencies": {
+    "boostrap": "^2.0.0"
+  }
+}

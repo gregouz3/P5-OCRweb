@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orinoco</title>
+  <link rel="icon" href="./../img/favicon.png" />
+  <link href="../dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="./../css/style.css" />
+
+</head>
+  <body onload="onLoadCartNumbers(), merci()">
+    <nav class="navbar navbar-expand-md navbar-light">
+      <a class="navbar-brand " href="index.html">
+        <img src="./../img/logo.png" alt="logo panier" />
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav ">
+          <a class="nav-item nav-link active mr-5" href="./index.html">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-item nav-link " href="./panier.html">Cart&nbsp;<span class="num">0</span></a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-md block-order">
+      <p class="row block-order__tt">Order send ! Total = <span id="tt"></span>&euro;</p>
+      <p class="row block-order__name">Thank you for your purchase &nbsp;<span id="nom_fa"></span> !</p>
+      <p class="row block-order__id">order number : <span id="num"></span></p>
+      <a href="index.html" id="retour" title="go back"><ion-icon class="block-prod__icon"name="arrow-back-outline"></ion-icon></a>
+
+    </div>
+   
+    
+
+
+    <footer class="d-flex aligns-items-center justify-content-center height=100 my-3">
+      <img src="./../img/logo.png" alt="logo panier" />
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../dist/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+		<script  type="text/javascript" src="./../js/index.js"></script>
+  </body>
+</html>

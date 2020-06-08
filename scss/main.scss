@@ -1,0 +1,126 @@
+* { margin: 0; padding: 0; }
+a {text-decoration: none;}
+ul {list-style: none;}
+.check-cart {text-decoration-line: none;}
+body, footer {
+  background-color: #F3E9F1;
+}
+.navbar {
+  background-color: #F3E9F1;
+  &-brand:hover {
+    opacity: 0.7;
+  }
+  &-nav {
+    margin-left: 50%;
+    overflow-x: hidden;
+    @media (max-width: 767px) {
+      margin: auto 25px;
+    }
+    &>a {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+
+.block {
+  border: solid  white;
+  &-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    &__article {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      box-shadow: 0 0 10px 0#955EEA;
+      margin: 2rem;
+      &__img {
+        text-align: center;
+        @media (max-width: 350px) {
+          width: 250px;
+          height: 150px;
+        }
+      }
+     
+      &--5, &__btn--5 {
+        background-color: #B9C9C7;
+      }
+      &--4, &__btn--4 {
+        background-color: #C6D7B9;
+      }
+      &--3, &__btn--3 {
+        background-color: #B7D3DB;
+      }
+      &--2, &__btn--2 {
+        background-color: #D9987C;
+      }
+      &--1, &__btn--1 {
+        background-color: #B17762;
+      }
+      &__name, &__price {
+        text-align: center;
+        margin-top: 0.5rem;
+        color: #fff;
+      }
+      &__name {
+        font-size: 1.6rem;
+      }
+      &__btn {
+        font-size: 0.9rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-top:  2px solid whitesmoke;
+        color: white;
+      }
+      &__btn:hover {
+        color:#955EEA;
+
+      }
+    }
+  }
+  &-prod {
+    border: solid  white;
+    &__img--chair {
+      height: 64vh;
+    }
+    &__icon {
+      font-size: 2rem;
+      color:#955EEA;
+    }
+    &__name {
+      font-size: 2rem;
+      font-weight: 500;
+    }
+    &__tag {
+      font-weight: 500;
+    }
+    &__price {
+      font-weight: 700;
+      font-size: 2rem;
+      color: white;
+    }
+    &__btn {
+      color: #955EEA;
+    
+    }
+    &__btn:hover {
+      color: white;
+      background-color: #955EEA;
+    }
+
+  }
+  &-cart__name, &-cart__price,&-cart__quantity,&-cart__total {
+    font-size: 1.5rem;
+  }
+  &-cart__id {
+    display: none;
+  }
+ 
+}
+
+.cart {
+  border: solid  white;
+} 
