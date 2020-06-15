@@ -67,8 +67,11 @@ async function show_prod() {
         <img   class="img-fluid  col-md-8 block-prod__img mb-1" src="${pro.imageUrl}" alt="image article">
         <div class="col-md-4 d-flex flex-column justify-content-center align-items-center">
         <p class="block-prod__name">${pro.name} </p>
+          
         <label for="vernis"></label>
-        <select name="verni" id="vernis"></select>
+        <select name="verni" id="vernis">
+            
+          </select>
       </div>
       </div>
       <p class="block-prod__tag mt-3">${pro.description} </p>
@@ -196,6 +199,32 @@ async function show_cart(product) {
       </div
      
     `;
+    prod.innerHTML += `
+      <form class="container-md">
+        <div class="form-group">
+          <label for="firstName">First name</label>
+          <input type="text" name="firstName" class="form-control" id="nom" required>
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last name</label>
+          <input type="text" name="lastName" class="form-control" id="prenom" required>
+        </div>
+        <div class="form-group">
+          <label for="city">City</label>
+          <input type="text"name="city" class="form-control" id="ville" required>
+        </div>
+        <div class="form-group">
+          <label for="Address">Address</label>
+          <input type="text"name="email" class="form-control" id="adresse" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email"name="email" class="form-control" id="email" required>
+        </div>
+        
+        <a href="./validationCommande.html"  class="btn btn-primary" id="envoi">Submit</a>
+      </form>
+      `;
     removeAllProd();
     let c = document.getElementById('envoi');
     c.addEventListener('click', () => {
@@ -210,6 +239,9 @@ function removeAllProd() {
     removeAll.addEventListener('click', () => {
       localStorage.clear();
       window.location.reload();
+      window.close();
+      window.location.reload();
+      window.open("./index.html");
     });  
 }
 
@@ -243,12 +275,12 @@ function contact() {
 
   let send = new Send(contacts, prodId);
   send = post_send(send);
-  ci = localStorage.getItem("order_id");
-  if (ci) {
-    alert("COMMANDE RECU");
-    window.close();
-    window.open("./validationCommande.html");
-  }
+  alert("ORDER SENT");
+  window.location.reload();
+
+
+
+  
 }
   
 
@@ -278,5 +310,9 @@ function merci() {
   let retur = document.getElementById('retour');
   retur.addEventListener('click', () => {
     localStorage.clear();
+    window.close();
+    window.location.reload();
+    window.open("./index.html");
   })
 }
+

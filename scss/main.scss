@@ -83,12 +83,12 @@ body, footer {
   }
   &-prod {
     border: solid  white;
+    &__icon {
+      font-size: 3rem;
+      color:#955EEA;
+    }
     &__img--chair {
       height: 64vh;
-    }
-    &__icon {
-      font-size: 2rem;
-      color:#955EEA;
     }
     &__name {
       font-size: 2rem;
@@ -118,9 +118,27 @@ body, footer {
   &-cart__id {
     display: none;
   }
+  &-cart__img {
+    height: 140px;
+  }
+  &-order {
+    border: solid  white;
+    text-align: center;
+    &__tt, &__name, &__id{
+      font-size: 1.5rem;
+      
+    }
+    &__icon {
+      font-size: 3rem;
+      color:#955EEA;
+    }
+  }
  
 }
 
 .cart {
   border: solid  white;
 } 
+.val {
+  text-align: center;
+}
