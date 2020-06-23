@@ -10,7 +10,7 @@
 
   
 </head>
-  <body onload="onLoadCartNumbers(),show_cart()">
+  <body>
     <nav class="navbar navbar-expand-md navbar-light">
       <a class="navbar-brand " href="index.html">
         <img src="./../img/logo.png" alt="logo panier" />
@@ -21,7 +21,11 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ">
           <a class="nav-item nav-link  mr-5" href="./index.html">Home </a>
-          <a class="nav-item nav-link active" href="./panier.html">Cart&nbsp;<span class="num">0</span><span class="sr-only">(current)</span></a>
+          <a class="nav-item nav-link " href="./panier.html">
+            <ion-icon name="cart-outline"></ion-icon>
+            Cart&nbsp;<span class="num">0</span>
+            <span class="sr-only">(current)</span>
+          </a>
         </div>
       </div>
     </nav>
@@ -36,13 +40,15 @@
     
 
     <footer class="d-flex aligns-items-center justify-content-center height=100 my-3">
-      <img src="./../img/logo.png" alt="logo panier" />
+      <a class="navbar-brand " href="index.html">
+        <img src="./../img/logo.png" alt="logo panier" />
+      </a>
     </footer>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../dist/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
-		<script type="text/javascript" src="./../js/index.js"></script>
+		<script type="text/javascript" src="./../js/panier.js"></script>
 
   </body>
 </html>

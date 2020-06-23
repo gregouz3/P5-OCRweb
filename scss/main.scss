@@ -14,7 +14,7 @@ body, footer {
     margin-left: 50%;
     overflow-x: hidden;
     @media (max-width: 767px) {
-      margin: auto 25px;
+      margin: auto 20px;
     }
     &>a {
       font-size: 1.5rem;
@@ -88,7 +88,15 @@ body, footer {
       color:#955EEA;
     }
     &__img--chair {
-      height: 64vh;
+      height:40%;
+      max-width: 450px;
+      margin: auto;
+    }
+    &__img {
+      height:40%;
+      max-width: 450px;
+      margin: auto;
+      
     }
     &__name {
       font-size: 2rem;
@@ -120,6 +128,9 @@ body, footer {
   }
   &-cart__img {
     height: 140px;
+    max-width: 240px;
+    margin: auto;
+    text-align: center;
   }
   &-order {
     border: solid  white;
