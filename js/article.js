@@ -43,7 +43,6 @@ async function show_prod() {
     vernis.appendChild(vrnsh).innerHTML = verni;
   }
   let products = [
-    inCart = 0,
     name = pro.name,
     description = pro.description,
     price = pro.price / 100,
@@ -53,7 +52,6 @@ async function show_prod() {
   let add_cart = document.querySelectorAll('.block-prod__btn');
   for (let i=0; i < add_cart.length; i++) {
     add_cart[i].addEventListener('click', () => {
-    
         prod_inCart(products);
         totalPrice(products);
    
@@ -77,27 +75,27 @@ function prod_inCart(products) {
 
 
 }
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
 function setItems(products) {
 
   
   let cartItems = localStorage.getItem('prodInCart');
   cartItems = JSON.parse(cartItems);
 
-  
   if (cartItems != null) {
     if (cartItems[product[1]] == undefined) {
       cartItems = {
         ...cartItems,
-        [products[4]]: products
+        [products[3] + getRandomInt(20)]: products
       }
     } 
-    products[0] += 1;
-
   }
   else {
-    products[0] = 1;    
     cartItems = {
-      [products[4]]: products
+      [products[3]]: products
     }
 
   
@@ -109,9 +107,9 @@ function setItems(products) {
 function totalPrice(products) {
   let tt = localStorage.getItem('totalPrice');
   if (tt != null ) 
-    localStorage.setItem("totalPrice", parseInt(tt) + products[3]);
+    localStorage.setItem("totalPrice", parseInt(tt) + products[2]);
   else 
-    localStorage.setItem("totalPrice", products[3]);
+    localStorage.setItem("totalPrice", products[2]);
 }
 
 function onLoadCartNumbers() {
