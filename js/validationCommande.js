@@ -8,7 +8,7 @@ function merci() {
   document.getElementById('nom_fa').textContent = ( ci.contact.lastName+ '  ' + ci.contact.firstName);
   document.getElementById('num').textContent = (ci.orderId);
   document.getElementById('tt').textContent = (tt);
-  let retur = document.querySelectorAll('#retour');
+  let retur = document.getElementsByClassName('retour');
   for(let i = 0;i < retur.length;i++) {
     retur[i].addEventListener('click', () => {
       localStorage.clear();

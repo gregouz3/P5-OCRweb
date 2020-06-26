@@ -19,8 +19,8 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ">
-          <a class="nav-item nav-link active mr-5" id="retour" href="./index.html">Home </a>
-          <a class="nav-item nav-link "id="retour" href="./panier.html">
+          <a class="nav-item nav-link active mr-5 retour"  href="./index.html">Home </a>
+          <a class="nav-item nav-link retour"  href="./panier.html">
             <ion-icon name="cart-outline"></ion-icon>
             Cart&nbsp;<span class="num">0</span>
           </a>
@@ -34,8 +34,8 @@
         <h2 class=" block-order__name col-md-12 ">Thank you for your purchase &nbsp;<span id="nom_fa"></span> !</h2>
         <h3 class=" block-order__id col-md-12 mt-2">
           order number :<span id="num"></span>
-          <a href="index.html" id="retour" title="go back">
-            <ion-icon class="block-order__icon d-flex justify-content-center aligns-items-center col-lg-12 mt-5"name="arrow-back-outline">
+          <a href="index.html" class="retour" title="go back">
+            <ion-icon class="block-order__icon d-flex justify-content-center aligns-items-center col-lg-12 mt-5" name="arrow-back-outline">
             </ion-icon>
           </a>
         </h3>
@@ -46,14 +46,14 @@
     
 
 
-    <footer class="d-flex aligns-items-center justify-content-center height=100 my-3">
-      <a class="navbar-brand " href="index.html" id="retour">
+    <footer class="d-flex aligns-items-center justify-content-center height=100 my-3 retour">
+      <a class="navbar-brand " href="index.html" >
         <img src="./../img/logo.png" alt="logo panier" />
       </a>
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../dist/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
-		<script  type="text/javascript" src="./../js/validationCommande.js"></script>
+		<script  src="./../js/validationCommande.js"></script>
   </body>
 </html>
