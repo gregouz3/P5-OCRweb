@@ -4,7 +4,8 @@ async function show_prod_inCart() {
   cartItems = JSON.parse(cartItems);
   let prod = document.querySelector(".block-cart");
   let cartCost = localStorage.getItem('totalPrice');
-  
+  //on affiche les articles ajoutés au préalable dans le panier
+
   if (cartItems && prod) {
     prod.innerHTML = '';
     Object.values(cartItems).map(item => {
@@ -60,7 +61,9 @@ async function show_prod_inCart() {
         <a  href="validationCommande.html" class="btn btn-light block-prod__btn d-flex justify-content-center"id="envoi">Submit</a>
       </form>
       `;
+    //possibilité de vider le panier, ou un article
     removeAllProd();
+    //création de l'object contact + ajout id de l'article pour l'envoi à l'Api
     let c = document.getElementById('envoi');
     c.addEventListener('click', () => {
         contact();
@@ -80,6 +83,7 @@ function removeAllProd() {
       window.open("./index.html");
     });  
 }
+
 function onLoadCartNumbers() {
 
   let prodNumbers = localStorage.getItem('cartNumbers');
@@ -90,8 +94,8 @@ function onLoadCartNumbers() {
 function removeProd() {
   let remove = document.getElementsByClassName('remove');
   let id = document.getElementsByClassName('block-cart__id');
+  //init tableau d'id des produits
   let prodid = [];
-
   for (let i=0;i<(remove.length) ;i++) {
     let prod = document.getElementsByClassName('cart');
     remove[i].addEventListener('click', () => {
@@ -99,7 +103,7 @@ function removeProd() {
           prodid.push(id[j]);
       }
       let prod = document.getElementById(prodid[i].textContent);
-      console.log(prod);
+      //si il n'y a qu'un article, on vide le panier
       if (remove.length == 1) {
           localStorage.clear();
           window.location.reload();
@@ -110,22 +114,28 @@ function removeProd() {
       else {
         let carti = localStorage.getItem("prod_Qt");
         carti = JSON.parse(carti);
+        //utilisation du tableau d'id pour récupérer le prix de l'article correspondant
         let price = carti[prodid[i].textContent].price * carti[prodid[i].textContent].quantity ;
-        console.log(price);
         let ttCart = document.querySelector('.tt');
         let prodtt = localStorage.getItem('totalPrice');
+        //on met à jour le total
         if (carti) {
           localStorage.setItem('totalPrice', parseInt(prodtt) - price);
           ttCart.textContent =  parseInt(prodtt) -  price;
         }
+        //on supprime sur la page web
         prod.classList.remove("cart");
         prod.classList.remove("bloc-cart__id");
         prod.textContent = null;
+        //on vide le localstorage pour y remettre par la suite les produits restant 
         localStorage.clear();
+        //on envoie le total
         localStorage.setItem('totalPrice', ttCart.textContent);
+        //on envoie la quantité de la barre nav
         localStorage.setItem('cartNumbers', document.querySelector('.num').textContent);
         let cart = document.getElementsByClassName('cart');
         if (cart.length < 2) {
+          //on recrée l'object si il y'en a plus qu'un
             let img = document.querySelector('.block-cart__img');
             let name = document.querySelector('.block-cart__name');
             let prix = document.querySelector('.prix');
@@ -144,14 +154,17 @@ function removeProd() {
             cartItems = {
               [prodCart.idMeuble] : prodCart
             }
+            //pour mettre à jour le localstorage
             localStorage.setItem("prod_Qt", JSON.stringify(cartItems));
             let countCart = document.querySelector('.num');
+            //on met à jour la quantité dans la barre nav
             localStorage.setItem('cartNumbers', parseInt(qt.textContent));
             window.location.reload();
-
         }
         else {
+          //init tableau des quantités des articles
           let nu = [];
+          //on recrée les objets
           for (let l=0;l < cart.length;l++){
               let img = document.getElementsByClassName('block-cart__img');
               let name = document.getElementsByClassName('block-cart__name');
@@ -172,35 +185,34 @@ function removeProd() {
                 ...JSON.parse(localStorage.getItem('prod_Qt')),
                 [prodCart.idMeuble]: prodCart
               }
+              //pour mettre à jour le localstorage
               localStorage.setItem("prod_Qt", JSON.stringify(cartitems));
+
               let countCart = document.querySelector('.num');
               let count = parseInt(qt[l].textContent);
-            
+              //ajout de la quantité des produits pour la quantité dans la nav
               nu.push(count);
-              
           }
+          //calcul l'addition total des elements d'un tableau
           const reducer = (accumulator, currentValue) => accumulator + currentValue;
-          console.log(nu.reduce(reducer));
+          //on envoie la quantité pour la barre nav
           localStorage.setItem("cartNumbers", nu.reduce(reducer));
           window.location.reload();
-
-          
         }
-          
       }
     });
   }
-        
 }
                  
-
 function contact() {
 
+  //on récupère les valeurs des inputs 
   let nom = document.getElementById("nom").value;
   let prenom = document.getElementById("prenom").value;
   let adresse = document.getElementById("adresse").value;
   let ville = document.getElementById("ville").value;
   let mail = document.getElementById("email").value;
+  // pour créer un object contact
   let contacts = {
     firstName : nom,
     lastName : prenom,
@@ -208,14 +220,13 @@ function contact() {
     city : ville,
     email :mail
   };
+  //test regex pour vérifier si il y'a des chiffres pour le nom, prenom, la ville
   let testText = /[0-9]/;
+  //test regex pour vérifier si l'adresse ne contient pas de characs autre qu'alphanumérique
   let testAdres =  /[A-Za-z0-9_]/;
+  //test regex pour vérifier si l'adresse mail est valide
   let testMail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  console.log(testText.test(ville));
-  console.log(testText.test(nom));
-  console.log(testText.test(prenom));
-  console.log(testMail.test(mail));
-  console.log(testAdres.test(adresse));
+  // test pour savoir si les champs sont vide 
   if (nom == "" || prenom == "" || adresse == "" || ville == "" || mail == "") {
     alert("Required  fields");
     window.close();
@@ -226,13 +237,16 @@ function contact() {
     window.close();
     window.open('./panier.html');
   }
-  
+  //si les données du formulaire sont validées --> 
   else {
     let id = document.getElementsByClassName('block-cart__id');
+    //init tableau des id pour le futur envoi
     let prodId = [];
     for (i=0; i < id.length; i++) {
+      //on ajoute à  ce tableau les id des produits du panier
       prodId.push((id[i].textContent));
     }
+    //création class d'envoie, avec l'object contact + le tableau d'id
     class Send {
       constructor(use, prodId) {
         this.contact = use;
@@ -240,17 +254,19 @@ function contact() {
       }
     }
     let send = new Send(contacts, prodId);
+    //on envoie
     send = post_send(send);
     alert("ORDER SENT");
   }
 }
   
 function post_send(send) {
-  
+  //envoie les données de la commande (contact + id des articles choisis)
   return new Promise((response)=>{
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
       if (this.readyState == XMLHttpRequest.DONE && this.status == 201) {
+        //ajout de la réponse dans le localstorage
         localStorage.setItem("order_id", this.responseText);
         response(JSON.parse(this.responseText));
       }
