@@ -12,12 +12,12 @@ async function show_prod_inCart() {
       prod.innerHTML += ` 
       <div class="row mt-2 cart " id="${item.idMeuble}">
         <div class="block-cart__id" id="idd">${item.idMeuble}</div>
-        <ion-icon class="remove m-auto " name="close-circle-outline"></ion-icon>
-        <img class="block-cart__img  col-md-4 col-xs-3" src="${item.imgSrc}">
-        <div class="block-cart__name col-md-3 col-xs-2 d-flex justify-content-center align-items-center">${item.name}</div>
-        <div class="block-cart__price col-md-2 col-xs-2 d-flex justify-content-center align-items-center"><span class="prix">${item.price}</span>&euro;</div>
-        <div class="block-cart__quantity col-md-1 col-xs-2 d-flex justify-content-center align-items-center">x <span class="qt">${item.quantity}</span></div>
-        <div class="block-cart__total col-md-2 col-xs-2 d-flex justify-content-center align-items-center">
+        <ion-icon class="remove my-auto ml-1" name="close-circle-outline"></ion-icon>
+        <img class="block-cart__img   col-md-4 col-sm-3 col-xs-3" src="${item.imgSrc}">
+        <div class="block-cart__name col-md-3 col-sm-2 col-xs-2 d-flex justify-content-center align-items-center">${item.name}</div>
+        <div class="block-cart__price col-md-1 col-sm-1 col-xs-1 d-flex justify-content-center align-items-center"><span class="prix">${item.price}</span>&euro;</div>
+        <div class="block-cart__quantity col-md-1 col-sm-1 col-xs-1 d-flex justify-content-center align-items-center">x <span class="qt">${item.quantity}</span></div>
+        <div class="block-cart__total col-md-2 col-sm-2 col-xs-1 d-flex justify-content-center align-items-center">
           TT= <span class="ttt">${item.total}</span>&euro;
         </div>
       </div>
@@ -38,28 +38,29 @@ async function show_prod_inCart() {
       <form  class="container-md ">
         <div class="form-group">
           <label class="form-check-label" for="nom">First name</label>
-          <input type="text" name="firstName" class="form-control" id="nom" required>
+          <input  maxlength="20" type="text" name="firstName" class="form-control" id="nom" required>
         </div>
         <div class="form-group">
           <label class="form-check-label" for="prenom">Last name</label>
-          <input type="text" name="lastName" class="form-control" id="prenom">
+          <input  maxlength="30" type="text" name="lastName" class="form-control" id="prenom">
         </div>
         <div class="form-group">
           <label class="form-check-label" for="ville">City</label>
-          <input type="text"name="city" class="form-control" id="ville" 
+          <input  maxlength="40" type="text"name="city" class="form-control" id="ville" 
         </div>
         <div class="form-group">
           <label class="form-check-label" for="adresse">Address</label>
-          <input type="text"name="adresse" class="form-control" id="adresse">
+          <input  maxlength="50" type="text"name="adresse" class="form-control" id="adresse">
         </div>
         <div class="form-group">
           <label class="form-check-label" for="email">Email address</label>
-          <input type="email"name="email" class="form-control" id="email">
+          <input maxlength="50"  type="email"name="email" class="form-control" id="email">
         </div>
         
         <a  href="validationCommande.html" class="btn btn-light block-prod__btn d-flex justify-content-center"id="envoi">Submit</a>
       </form>
       `;
+    removeAllProd();
     let c = document.getElementById('envoi');
     c.addEventListener('click', () => {
         contact();
@@ -207,12 +208,25 @@ function contact() {
     city : ville,
     email :mail
   };
+  let testText = /[0-9]/;
+  let testAdres =  /[A-Za-z0-9_]/;
+  let testMail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  console.log(testText.test(ville));
+  console.log(testText.test(nom));
+  console.log(testText.test(prenom));
+  console.log(testMail.test(mail));
+  console.log(testAdres.test(adresse));
   if (nom == "" || prenom == "" || adresse == "" || ville == "" || mail == "") {
-    alert("champs requis");
+    alert("Required  fields");
     window.close();
     window.open('./panier.html');
-
   }
+  if ((testText.test(nom) == true || testText.test(prenom) == true || testText.test(ville) == true|| testAdres.test(adresse) == false || testMail.test(mail) == false) ) {
+    alert("Incorrect fields");
+    window.close();
+    window.open('./panier.html');
+  }
+  
   else {
     let id = document.getElementsByClassName('block-cart__id');
     let prodId = [];
@@ -228,14 +242,9 @@ function contact() {
     let send = new Send(contacts, prodId);
     send = post_send(send);
     alert("ORDER SENT");
-
-
-
-
   }
 }
   
-
 function post_send(send) {
   
   return new Promise((response)=>{
@@ -253,4 +262,3 @@ function post_send(send) {
 }
 
 show_prod_inCart();
-removeAllProd();

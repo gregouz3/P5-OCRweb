@@ -42,6 +42,7 @@ function show_prod() {
   let add_cart = document.querySelectorAll('.block-prod__btn');
   for (let i=0; i < add_cart.length; i++) {
     add_cart[i].addEventListener('click', () => {
+      alert("This product is added to your cart !")
       prod_inCart(pro);
       prod_Qt(pro);
       totalPrice(pro);
