@@ -1,32 +1,28 @@
 async function show_prod_inCart() {
   onLoadCartNumbers();
-  let cartItems = localStorage.getItem('prodInCart');
+  let cartItems = localStorage.getItem('prod_Qt');
   cartItems = JSON.parse(cartItems);
-  let cartCost = localStorage.getItem('totalPrice');
   let prod = document.querySelector(".block-cart");
-  let sa = 0;
+  let cartCost = localStorage.getItem('totalPrice');
+  
   if (cartItems && prod) {
-
     prod.innerHTML = '';
     Object.values(cartItems).map(item => {
-      if (item[1] == "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." ) 
-        item[1] = "";
-      prod.innerHTML += `
-        <div class="row mt-2 cart cart--${sa}" >
-          <div class="block-cart__id" id="idd">${item[3]}</div>
-          <ion-icon class="remove m-auto" id="${sa}" " name="close-circle-outline"></ion-icon>
-          <img class="block-cart__img  col-md-4 col-sm-3" src="${item[4]}">
-          <div class="block-cart__name col-md-2 col-sm-2 d-flex justify-content-center align-items-center"><span class="nom">${item[0]}</span></div>
-          <div class="block-cart__name m-auto">${item[1]}</div>
-          <div class=" block-cart__price col-md-2 col-sm-2 d-flex justify-content-center align-items-center">
-            <span class="cart--${sa} prix">${item[2]}</span>&euro;
-          </div>
+     
+      prod.innerHTML += ` 
+      <div class="row mt-2 cart " id="${item.idMeuble}">
+        <div class="block-cart__id" id="idd">${item.idMeuble}</div>
+        <ion-icon class="remove m-auto " name="close-circle-outline"></ion-icon>
+        <img class="block-cart__img  col-md-4 col-xs-3" src="${item.imgSrc}">
+        <div class="block-cart__name col-md-3 col-xs-2 d-flex justify-content-center align-items-center">${item.name}</div>
+        <div class="block-cart__price col-md-2 col-xs-2 d-flex justify-content-center align-items-center"><span class="prix">${item.price}</span>&euro;</div>
+        <div class="block-cart__quantity col-md-1 col-xs-2 d-flex justify-content-center align-items-center">x <span class="qt">${item.quantity}</span></div>
+        <div class="block-cart__total col-md-2 col-xs-2 d-flex justify-content-center align-items-center">
+          TT= <span class="ttt">${item.total}</span>&euro;
         </div>
-      `;
-    
-      sa++;
+      </div>
+    `;
     });
-
     prod.innerHTML += `
       <div class="row mt-3 d-flex justify-content-center">
         <h4 class="block-total__name">
@@ -64,8 +60,6 @@ async function show_prod_inCart() {
         <a  href="validationCommande.html" class="btn btn-light block-prod__btn d-flex justify-content-center"id="envoi">Submit</a>
       </form>
       `;
-    removeAllProd();
-    removeProd();
     let c = document.getElementById('envoi');
     c.addEventListener('click', () => {
         contact();
@@ -75,7 +69,7 @@ async function show_prod_inCart() {
 
 
 function removeAllProd() {
-  
+  removeProd();
   let removeAll = document.querySelector('.removeAll');
     removeAll.addEventListener('click', () => {
       localStorage.clear();
@@ -95,95 +89,110 @@ function onLoadCartNumbers() {
 function removeProd() {
   let remove = document.getElementsByClassName('remove');
   let id = document.getElementsByClassName('block-cart__id');
+  let prodid = [];
 
   for (let i=0;i<(remove.length) ;i++) {
-      let prod = document.getElementsByClassName('cart');
-
-      remove[i].addEventListener('click', () => {
-     
-      if (remove.length == 1) {
-        localStorage.clear();
-        window.location.reload();
-        window.close();
-        window.location.reload();
-        window.open("./index.html");
+    let prod = document.getElementsByClassName('cart');
+    remove[i].addEventListener('click', () => {
+      for (let j=0; j < id.length; j++) {
+          prodid.push(id[j]);
       }
-
-      else {
-        let produ = document.getElementsByClassName(prod[i].className);
-        let carti = localStorage.getItem('prodInCart');
-        carti = JSON.parse(carti);
-        let price = document.querySelector('.cart--' + i + '.prix');
-        price = parseInt(price.textContent);
-        if (price) {
-          let ttCart = document.querySelector('.tt');
-          let prodtt = localStorage.getItem('totalPrice');
-          if (carti) {
-              localStorage.setItem('totalPrice', parseInt(prodtt) - price);
-              ttCart.textContent =  parseInt(prodtt) -  price;
-          }
-          prod[i].classList.remove('cart--'+ i);
-          prod[i].classList.remove("bloc-cart__id");
-          prod[i].textContent = null;
-          prod[i].classList.remove('cart');
-
+      let prod = document.getElementById(prodid[i].textContent);
+      console.log(prod);
+      if (remove.length == 1) {
           localStorage.clear();
-          localStorage.setItem('totalPrice', ttCart.textContent);
-          let cart = document.getElementsByClassName('cart');
-          if (cart.length < 2) {
-                let img = document.querySelector('.block-cart__img');
-                let name = document.querySelector('.nom');
-                let prix = document.querySelector('.prix');
-                let idd = document.getElementById('idd');
-              
-            
-                let prodCart = [
-                  name = name.textContent,
-                  description = "",
-                  price = prix.textContent,
-                  idMeuble = idd.textContent,
-                  imgSrc = img.src,
-                ];
-                cartitems = {
-                  [prodCart[3]]: prodCart
-                }
-                localStorage.setItem("prodInCart", JSON.stringify(cartitems));
-                localStorage.setItem("cartNumbers", 1);
-                window.location.reload();
-          } 
-          for (let l=0;l < cart.length;l++){
-              if (cart.length > 2) {
-                let img = document.getElementsByClassName('block-cart__img');
-                let name = document.getElementsByClassName('nom');
-                let prix = document.getElementsByClassName('prix');
-                let idd = document.querySelectorAll('#idd');
-               
+          window.location.reload();
+          window.close();
+          window.location.reload();
+          window.open("./index.html");
+      }
+      else {
+        let carti = localStorage.getItem("prod_Qt");
+        carti = JSON.parse(carti);
+        let price = carti[prodid[i].textContent].price * carti[prodid[i].textContent].quantity ;
+        console.log(price);
+        let ttCart = document.querySelector('.tt');
+        let prodtt = localStorage.getItem('totalPrice');
+        if (carti) {
+          localStorage.setItem('totalPrice', parseInt(prodtt) - price);
+          ttCart.textContent =  parseInt(prodtt) -  price;
+        }
+        prod.classList.remove("cart");
+        prod.classList.remove("bloc-cart__id");
+        prod.textContent = null;
+        localStorage.clear();
+        localStorage.setItem('totalPrice', ttCart.textContent);
+        localStorage.setItem('cartNumbers', document.querySelector('.num').textContent);
+        let cart = document.getElementsByClassName('cart');
+        if (cart.length < 2) {
+            let img = document.querySelector('.block-cart__img');
+            let name = document.querySelector('.block-cart__name');
+            let prix = document.querySelector('.prix');
+            let idd = document.getElementById('idd');
+            let qt = document.querySelector('.qt');
+            let tt = document.querySelector('.ttt');
 
-                let prodCart = [
-                  name = name[l].textContent,
-                  description= (document.querySelector('.num').textContent) - 1,
-                  price = prix[l].textContent,
-                  idMeuble = idd[l].textContent,
-                  imgSrc = img[l].src,
-                ];
-               
-                cartitems = {
-                  ...JSON.parse(localStorage.getItem('prodInCart')),
-                  [prodCart[3]]: prodCart
-                }
-                localStorage.setItem("prodInCart", JSON.stringify(cartitems));
-                localStorage.setItem("cartNumbers", idd.length);
-
-              }
-              window.location.reload()    
-          }
-        
+            let prodCart = {
+              idMeuble : idd.textContent,
+              imgSrc: img.src,
+              name: name.textContent,
+              price: parseInt(prix.textContent),
+              quantity: parseInt(qt.textContent),
+              total: parseInt(tt.textContent)
+            }
+            cartItems = {
+              [prodCart.idMeuble] : prodCart
+            }
+            localStorage.setItem("prod_Qt", JSON.stringify(cartItems));
+            let countCart = document.querySelector('.num');
+            localStorage.setItem('cartNumbers', parseInt(qt.textContent));
+            window.location.reload();
 
         }
+        else {
+          let nu = [];
+          for (let l=0;l < cart.length;l++){
+              let img = document.getElementsByClassName('block-cart__img');
+              let name = document.getElementsByClassName('block-cart__name');
+              let prix = document.getElementsByClassName('prix');
+              let idd = document.querySelectorAll('#idd');
+              let qt = document.getElementsByClassName('qt');
+              let tt = document.getElementsByClassName('ttt');
+
+              let prodCart = {
+                idMeuble : idd[l].textContent,
+                imgSrc: img[l].src,
+                name: name[l].textContent,
+                price: parseInt(prix[l].textContent),
+                quantity: parseInt(qt[l].textContent),
+                total: parseInt(tt[l].textContent)
+              };
+              cartitems = {
+                ...JSON.parse(localStorage.getItem('prod_Qt')),
+                [prodCart.idMeuble]: prodCart
+              }
+              localStorage.setItem("prod_Qt", JSON.stringify(cartitems));
+              let countCart = document.querySelector('.num');
+              let count = parseInt(qt[l].textContent);
+            
+              nu.push(count);
+              
+          }
+          const reducer = (accumulator, currentValue) => accumulator + currentValue;
+          console.log(nu.reduce(reducer));
+          localStorage.setItem("cartNumbers", nu.reduce(reducer));
+          window.location.reload();
+
+          
+        }
+          
       }
     });
   }
+        
 }
+                 
+
 function contact() {
 
   let nom = document.getElementById("nom").value;
@@ -244,3 +253,4 @@ function post_send(send) {
 }
 
 show_prod_inCart();
+removeAllProd();

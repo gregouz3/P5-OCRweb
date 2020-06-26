@@ -19,17 +19,39 @@ async function show_all_prod() {
   product.innerHTML = '';
   const prod = await get_all_prod();
   let iSass = 6;
+  let products = [];
   prod.forEach((item) => {
+
     iSass--;
     product.innerHTML += `
-      <li class="block-list__article block-list__article--${iSass}" >
+      <li title="Click for view more" class="block-list__article block-list__article--${iSass}" >
         <img height=200 width=300 class="block-list__article__img" src="${item.imageUrl}" alt="image article">
         <h5 class="block-list__article__name">${item.name} </p>
         <p class="block-list__article__price">${item.price / 100} &euro;</p>
-        <a title="view more" href="article.html?id=${item._id}" id="check_prod" class="block-list__article__btn block-list__article__btn--${iSass}">View more</a>
       </li>
     `;
+
+    let article = 
+      {
+          name : item.name,
+          description : item.description,
+          price : item.price / 100,
+          idMeuble : item._id,
+          imgSrc : item.imageUrl,
+          option : item.varnish
+      };
+      products.push(article);
   });
+  let view = document.getElementsByClassName('block-list__article');
+  for (let i =0; i < view.length;i++) {
+
+    view[i].addEventListener('click', () => {
+      localStorage.setItem("prodView", JSON.stringify(products[i]));
+      window.close();
+      window.open('./article.html');
+    })
+  }
+
 }
 
 function onLoadCartNumbers() {

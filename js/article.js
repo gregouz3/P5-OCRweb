@@ -81,26 +81,24 @@ function getRandomInt(max) {
 
 function setItems(products) {
 
-  
+  let prodNumbers = localStorage.getItem('cartNumbers')
   let cartItems = localStorage.getItem('prodInCart');
   cartItems = JSON.parse(cartItems);
-
   if (cartItems != null) {
-    if (cartItems[product[1]] == undefined) {
-      cartItems = {
-        ...cartItems,
-        [products[3] + getRandomInt(20)]: products
-      }
-    } 
-  }
-  else {
-    cartItems = {
-      [products[3]]: products
-    }
 
-  
+          cartItems = {
+            ...cartItems,
+            [products[3]]: products
+          }
+      }
+  else {
+      cartItems = {
+        [products[3]]: products
+      }
+
   }
   localStorage.setItem("prodInCart", JSON.stringify(cartItems));
+
 }
 
 
